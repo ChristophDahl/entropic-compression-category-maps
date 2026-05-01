@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+title: "Entropic Compression and Target Preservation in Category Maps"
+message: "If you use this software, please cite the associated manuscript and this repository."
+authors:
+  - family-names: Dahl
+    given-names: Christoph D.
+version: 1.0.0
+license: MIT

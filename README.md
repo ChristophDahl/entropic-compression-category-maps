@@ -31,6 +31,9 @@ entropic-compression-github/
 ├── LICENSE
 └── README.md
 ```
+## Dataset note
+
+The neural-network pipeline requires the CIFAR-10 MATLAB batch files, which are not bundled with this repository. Please download CIFAR-10 separately and place the extracted MATLAB files in `data/cifar-10-batches-mat/` before running the CIFAR-10 preparation and neural-analysis scripts.
 
 ## Canonical entry points
 
@@ -61,8 +64,9 @@ run('src/neural/plot_resnet50_saved_results.m')
 
 This script regenerates the manuscript-ready ResNet-50 figures from previously saved CSV results.
 
-### CIFAR-10 preparation helper
-Run:
+## CIFAR-10 preparation helper
+
+After placing the CIFAR-10 MATLAB batch files in `data/cifar-10-batches-mat/`, run:
 
 ```matlab
 run('src/data_prep/prepare_cifar10_variants.m')

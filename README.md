@@ -12,7 +12,12 @@ entropic-compression-github/
 │   ├── neural/
 │   │   ├── run_resnet50_two_scenario_analysis.m
 │   │   ├── plot_resnet50_saved_results.m
-│   │   └── plot_resnet50_feature_maps_example.m
+│   │   ├── plot_resnet50_feature_maps_example.m
+│   │   ├── run_resnet50_conditional_controls.m
+│   │   ├── main_mild_balanced_supervised_readout_10class_v2.m
+│   │   ├── redraw_resnet50_conditional_control_2panel_v1.m
+│   │   ├── redraw_mild_balanced_readout_figures_v2.m
+│   │   └── print_demo03_robustness_latex_table.m
 │   ├── data_prep/
 │   │   └── prepare_cifar10_variants.m
 │   └── utils/
@@ -20,7 +25,18 @@ entropic-compression-github/
 │       ├── drawManualLineLegend.m
 │       ├── labelSubplots.m
 │       ├── placeLegendAt.m
-│       └── placeLegendAtAxes.m
+│       ├── placeLegendAtAxes.m
+│       ├── ec_entropy_discrete.m
+│       ├── ec_joint_entropy_discrete.m
+│       ├── ec_mutual_information_discrete.m
+│       ├── ec_nmi_target.m
+│       ├── ec_conditional_entropy.m
+│       ├── ec_conditional_mutual_information.m
+│       ├── ec_conditional_nmi_target.m
+│       ├── ec_shuffle_within_group.m
+│       ├── ec_permutation_nmi.m
+│       ├── ec_permutation_conditional_nmi.m
+│       └── ec_bootstrap_ci_mean.m
 ├── data/        # input data live here (ignored by Git except placeholders)
 ├── results/     # generated tables and .mat files live here
 ├── figures/     # generated figure files live here
@@ -44,7 +60,7 @@ Run:
 run('src/synthetic/run_synthetic_category_map_demos.m')
 ```
 
-This script generates the synthetic category-map demonstrations, summary tables, and manuscript figures.
+This script generates the synthetic category-map demonstrations, summary tables, and manuscript figures.These analyses evaluate category entropy, mutual information, normalised mutual information, conditional entropy, target preservation, and robustness under perturbation for explicitly defined category maps.
 
 ### ResNet-50 two-scenario analysis
 Run:
@@ -63,6 +79,54 @@ run('src/neural/plot_resnet50_saved_results.m')
 ```
 
 This script regenerates the manuscript-ready ResNet-50 figures from previously saved CSV results.
+
+### Qualitative feature-map figure
+
+Run:
+
+```matlab
+run('src/neural/plot_resnet50_feature_maps_example.m')
+```
+
+This script produces the qualitative feature-map figure for one example image across nuisance variants.
+
+
+### Revision analyses
+
+The revision analyses were added to address whether unsupervised layer-derived category maps preserve object-relevant information, nuisance-condition information, or object information that remains detectable after nuisance condition is controlled.
+
+### Strong pooled-nuisance conditional control
+
+Run:
+
+```matlab
+run('scripts/run_revision_resnet50_controls_strong.m')
+```
+This script calls:
+
+```matlab
+src/revision/run_resnet50_conditional_controls.m
+```
+in strong pooled-nuisance mode. It evaluates object information, nuisance information, conditional object information given nuisance condition, and null-corrected conditional object information using within-nuisance permutation baselines.
+
+### Mild nuisance-control analysis
+
+Run:
+
+```matlab
+run('scripts/run_revision_resnet50_controls_mild.m')
+```
+This script applies the same conditional-analysis pipeline to a milder balanced nuisance-control image set. This analysis tests whether the dominance of nuisance information depends on the strength of the imposed transformation structure.
+
+### Supervised-readout control
+
+Run:
+
+```matlab
+run('scripts/run_revision_supervised_readout_mild.m')
+```
+This script runs the target-specific supervised readout analysis. Object-trained and nuisance-trained networks are compared to test whether the dominant recoverable information follows the specified training target.
+
 
 ## CIFAR-10 preparation helper
 
